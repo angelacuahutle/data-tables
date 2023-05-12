@@ -64,6 +64,13 @@ class BookmarksController < ApplicationController
     @tags = tags_count_data(bookmarks)
   end
 
+  def export_csv
+    @bookmarks = Bookmark.all
+    respond_to do |format|
+      format.csv { send_data @bookmarks.to_csv, filename: "bookmarks-#{Date.today}.csv" }
+    end
+  end
+
   private
 
 
