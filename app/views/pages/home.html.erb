@@ -1,50 +1,56 @@
-<div class="flex justify-center mt-20 overflow-x-scroll">
- <div class="px-4 sm:px-6 lg:px-8">
-  <div class="sm:flex sm:items-center">
-    <div class="sm:flex-auto">
-      <h1 class="text-base font-semibold leading-6 text-gray-900">Domains Count with Tags </h1>
-      <p class="mt-2 text-sm text-gray-700"> In order to sort each column, please click headers! </p>
-      <%= link_to "Exportar a CSV", export_csv_bookmarks_path, id: "export-csv" %>
+<div class="flex justify-center mt-20">
+  <div class="px-4 sm:px-6 lg:px-8">
+    <div class="sm:flex sm:items-center">
+      <div class="sm:flex-auto">
+        <h1 class="text-base font-semibold leading-6 text-gray-900">Domains Count with Tags </h1>
+        <p class="mt-2 text-sm text-gray-700"> In order to sort each column, please click headers! </p>
+        <%= link_to "Exportar a CSV", export_csv_bookmarks_path, id: "export-csv" %>
+      </div>
     </div>
-  </div>
-  <div class="mt-8 flow-root">
-    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg overflow-x-scroll overflow-y-scroll">
-          <table class="min-w-full divide-y divide-gray-300 overflow-x-scroll">
-           <thead class="bg-gray-50">
-  <tr>
-    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-      <%= link_to "Url's (#{@sorted_website_names_with_tags.size})", {sort_by: 'website_name', direction: params[:direction] == 'asc' ? 'desc' : 'asc'} %>
-    </th>
-    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-      <%= link_to "Count", {sort_by: 'count', direction: params[:direction] == 'asc' ? 'desc' : 'asc'} %>
-    </th>
-    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-      <%= link_to "Tags", {sort_by: 'tags', direction: params[:direction] == 'asc' ? 'desc' : 'asc'} %>
-    </th>
-  </tr>
-</thead>
-
-            <tbody class="divide-y divide-gray-200 bg-white">
-              <% @sorted_website_names_with_tags.each do |website_name, tags_tally| %>
-                <tr>
-                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= website_name %></td>
-                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= tags_tally.values.sum %></td>
-                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                    <% tags_tally.each do |tag, _ | %>
-                      <%= "#{tag}" %><br>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
+    <div class="mt-8 flow-root">
+      <div class="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+          <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+            <div style="height: 500px; overflow-y: scroll; overflow-x: scroll;">
+              <table class="min-w-full divide-y divide-gray-300">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th scope="col" class="sticky-header py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                      <%= link_to "Url's (#{@sorted_website_names_with_tags.size})", {sort_by: 'website_name', direction: params[:direction] == 'asc' ? 'desc' : 'asc'} %>
+                    </th>
+                    <th scope="col" class="sticky-header px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      <%= link_to "Count", {sort_by: 'count', direction: params[:direction] == 'asc' ? 'desc' : 'asc'} %>
+                    </th>
+                    <th scope="col" class="sticky-header px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      <%= link_to "Tags", {sort_by: 'tags', direction: params[:direction] == 'asc' ? 'desc' : 'asc'} %>
+                    </th>
+                    <th scope="col" class="sticky-header px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      Description
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                  <% @sorted_website_names_with_tags.each_with_index do |(website_name, data), index| %>
+                    <tr>
+                      <td class="<%= 'sticky-first-row' if index == 0 %> whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= website_name %></td>
+                      <td class="<%= 'sticky-first-row' if index == 0 %> whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= data[:tags].values.sum %></td>
+                      <td class="<%= 'sticky-first-row' if index == 0 %> whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                        <% data[:tags].each_with_index  do |tag, index | %>
+                          <% break if index >= 10%>
+                          <%= "#{tag.first}" %><br>
+                        <% end %>
+                      </td>
+                      <td class="<%= 'sticky-first-row' if index == 0 %> py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= truncate(data[:descriptions].first)%></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
- </div>
 </div>
 
 <%# bar chart  %>
