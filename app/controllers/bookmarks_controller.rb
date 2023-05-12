@@ -55,39 +55,20 @@ class BookmarksController < ApplicationController
     end
   end
 
-  def tables
-    bookmarks = JSON.parse(File.read('ruby_bookmarks.json'))
-    @tags = tags_count_data(bookmarks)
-    @bookmarks_time = Bookmark.all.group_by_day(:created_at).count
+  def export_csv
+    @bookmarks = Bookmark.all
+    respond_to do |format|
+      format.csv { send_data @bookmarks.to_csv, filename: "bookmarks-#{Date.today}.csv" }
+    end
   end
 
   private
-
-  def tags_count_data(bookmarks)
-    tags_counts = {}
-    bookmarks.each do |bookmark|
-      tags = bookmark['tags'].split
-      tags.each do |tag|
-        tags_counts[tag] ||= 0
-        tags_counts[tag] += 1
-      end
-    end
-    tags_counts
-  end
-
-  # Use callbacks to share common setup or constraints between actions.
 
   def set_bookmark
     @bookmark = Bookmark.find(params[:id])
   end
 
-  def bookmarks_over_time
-    @bookmarks_time = Bookmark.group_by_day(:created_at).count
-  end
-
-  # Only allow a list of trusted parameters through.
-
   def bookmark_params
-    params.require(:bookmark).permit(:href, :description, :extended, :meta, :hash_value, :shared, :toread, :tags)
+    params.require(:bookmark).permit(:href, :description, :extended, :meta, :hash_value, :shared, :toread, :tags[])
   end
 end

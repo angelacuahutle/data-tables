@@ -13,3 +13,21 @@
  *= require_tree .
  *= require_self
  */
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  background-color: rgb(249 250 251);
+  z-index: 100;
+}
+
+.sticky-first-row {
+  position: sticky;
+  top: 38px; /* Adjust this value based on the height of your table header */
+  background-color: white;
+  z-index: 10;
+}
+
+* {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}

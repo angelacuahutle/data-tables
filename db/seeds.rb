@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-bookmarks = JSON.parse(File.read("ruby_bookmarks.json"))
+bookmarks = JSON.parse(File.read("bookmarks_data.json"))
 bookmarks.each do |bookmark|
-	Bookmark.create!(href: bookmark['href'], tags: bookmark['tags'], description: bookmark['description'], extended: bookmark['extended'], meta: bookmark['meta'], hash_value: bookmark['hash'], shared: bookmark['shared'], toread: bookmark['toread'], created_at: bookmark['time'])
+	Bookmark.create!(href: bookmark['href'], tags: bookmark['tags'].split, description: bookmark['description'], extended: bookmark['extended'], meta: bookmark['meta'], hash_value: bookmark['hash'], shared: bookmark['shared'], toread: bookmark['toread'], created_at: bookmark['time'])
 end
