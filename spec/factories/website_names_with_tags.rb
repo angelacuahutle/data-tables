@@ -1,6 +1,6 @@
 # spec/factories/website_names_with_tags.rb
 FactoryBot.define do
-  factory :sorted_website_names_with_tags, class: Hash do
+  factory :sorted_tags_count_with_description, class: Hash do
     skip_create
 
     initialize_with do

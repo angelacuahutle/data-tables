@@ -16,7 +16,7 @@
                 <thead class="bg-gray-50">
                   <tr>
                     <th scope="col" class="sticky-header py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                      <%= link_to "Url's (#{@sorted_website_names_with_tags.size})", {sort_by: 'website_name', direction: params[:direction] == 'asc' ? 'desc' : 'asc'} %>
+                      <%= link_to "Url's (#{@sorted_tags_count_with_description&.size})", {sort_by: 'website_name', direction: params[:direction] == 'asc' ? 'desc' : 'asc'} %>
                     </th>
                     <th scope="col" class="sticky-header px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                       <%= link_to "Count", {sort_by: 'count', direction: params[:direction] == 'asc' ? 'desc' : 'asc'} %>
@@ -30,7 +30,7 @@
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 bg-white">
-                  <% @sorted_website_names_with_tags.each_with_index do |(website_name, data), index| %>
+                  <% @sorted_tags_count_with_description&.each_with_index do |(website_name, data), index| %>
                     <tr>
                       <td class="<%= 'sticky-first-row' if index == 0 %> whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= website_name %></td>
                       <td class="<%= 'sticky-first-row' if index == 0 %> whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= data[:tags].values.sum %></td>
@@ -52,13 +52,3 @@
     </div>
   </div>
 </div>
-
-<%# bar chart  %>
-
-<%# Table (All bookmarks data, sortear created_at, number of tags, y alphabetical domains)%>
-
-<%# line chart donde muestre por el timestamp %>
-
-<%# pie char de private%>
-
-<%# pie char de red%>

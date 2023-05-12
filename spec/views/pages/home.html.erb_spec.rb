@@ -3,14 +3,14 @@ require 'rails_helper'
 
 RSpec.describe 'pages/home', type: :view do
 
-  let(:sorted_website_names_with_tags) { FactoryBot.create(:sorted_website_names_with_tags) }
+  let(:sorted_tags_count_with_description) { FactoryBot.create(:sorted_tags_count_with_description) }
 
   before do
-    assign(:sorted_website_names_with_tags, sorted_website_names_with_tags)
+    assign(:sorted_tags_count_with_description, sorted_tags_count_with_description)
   end
 
   it "renders the page title" do
-    assign(:sorted_website_names_with_tags, sorted_website_names_with_tags)
+    assign(:sorted_tags_count_with_description, sorted_tags_count_with_description)
     render template: 'pages/home'
 
     expect(rendered).to have_content("Domains Count with Tags")
@@ -20,7 +20,7 @@ RSpec.describe 'pages/home', type: :view do
   it 'renders the table headers' do
     render template: 'pages/home'
 
-    expect(rendered).to have_css('th', text: "Url's (#{sorted_website_names_with_tags.size})")
+    expect(rendered).to have_css('th', text: "Url's (#{sorted_tags_count_with_description.size})")
     expect(rendered).to have_css('th', text: 'Count')
     expect(rendered).to have_css('th', text: 'Tags')
     expect(rendered).to have_css('th', text: 'Description')

@@ -55,15 +55,6 @@ class BookmarksController < ApplicationController
     end
   end
 
-  def read_json
-    @bookmarks = Bookmark.all
-    tables(bookmarks)
-  end
-
-  def tables(bookmarks)
-    @tags = tags_count_data(bookmarks)
-  end
-
   def export_csv
     @bookmarks = Bookmark.all
     respond_to do |format|

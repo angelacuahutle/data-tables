@@ -56,7 +56,7 @@ group :development, :test do
   gem 'capybara'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
-  gem 'pry'
+  gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'rubocop'
 end
