@@ -5,13 +5,13 @@ FactoryBot.define do
 
     initialize_with do
       {
-        "example.com" => {
-          tags: { "tag1" => 1, "tag2" => 1 },
-          descriptions: ["Sample description"]
+        'example.com' => {
+          tags: { 'tag1' => 1, 'tag2' => 1 },
+          descriptions: ['Sample description']
         },
-        "example2.com" => {
-          tags: { "tag3" => 1 },
-          descriptions: ["Sample description 2"]
+        'example2.com' => {
+          tags: { 'tag3' => 1 },
+          descriptions: ['Sample description 2']
         }
       }
     end

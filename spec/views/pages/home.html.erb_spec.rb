@@ -1,21 +1,18 @@
-# spec/views/domains_spec.rb
 require 'rails_helper'
 
 RSpec.describe 'pages/home', type: :view do
-
   let(:sorted_tags_count_with_description) { FactoryBot.create(:sorted_tags_count_with_description) }
 
   before do
     assign(:sorted_tags_count_with_description, sorted_tags_count_with_description)
   end
 
-  it "renders the page title" do
+  it 'renders the page title' do
     assign(:sorted_tags_count_with_description, sorted_tags_count_with_description)
     render template: 'pages/home'
 
-    expect(rendered).to have_content("Domains Count with Tags")
+    expect(rendered).to have_content('Domains Count with Tags')
   end
-
 
   it 'renders the table headers' do
     render template: 'pages/home'

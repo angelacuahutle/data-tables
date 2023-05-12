@@ -4,7 +4,7 @@ class PagesController < ApplicationController
 
     domains_with_tags_and_description
     tags_count_with_description
-    return @sorted_tags_count_with_description = sorted_tags&.reverse! if direction == "desc"
+    return @sorted_tags_count_with_description = sorted_tags&.reverse! if direction == 'desc'
 
     @sorted_tags_count_with_description = sorted_tags
   end
@@ -49,11 +49,11 @@ class PagesController < ApplicationController
   end
 
   def column
-    params[:sort_by] || "website_name"
+    params[:sort_by] || 'website_name'
   end
 
   def direction
-    params[:direction] || "asc"
+    params[:direction] || 'asc'
   end
 
   # TODO: Safe params
