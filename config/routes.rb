@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resources :bookmarks do
+    get 'export_csv', on: :collection, defaults: { format: :csv }
+  end
+  root 'pages#home'
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  get '/tables', to: 'bookmarks#tables'
+
+  get '/modal', to: 'pages#modal'
+  get '/modal_content', to: 'pages#modal_content'
+
+
 end
